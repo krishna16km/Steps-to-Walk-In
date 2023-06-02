@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Walk-in Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .submit-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Walk-in Details</h1>
+
+  <form id="walkin-form" action="mailto:kittuofficial2002@gmail.com" method="post" enctype="text/plain">
+    <div class="form-group">
+      <label for="company-name">Company Name:</label>
+      <input type="text" id="company-name" name="company-name" placeholder="Enter company name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="job-role">Job Role:</label>
+      <input type="text" id="job-role" name="job-role" placeholder="Enter job role" required>
+    </div>
+
+    <div class="form-group">
+      <label for="job-location">Job Location (Landmarks):</label>
+      <input type="text" id="landmark1" name="landmark1" placeholder="Landmark 1" required>
+      <input type="text" id="landmark2" name="landmark2" placeholder="Landmark 2" required>
+      <input type="text" id="landmark3" name="landmark3" placeholder="Landmark 3" required>
+    </div>
+
+    <div class="form-group">
+      <label for="walkin-dates">Walk-in Dates and Timings:</label>
+      <input type="text" id="walkin-dates" name="walkin-dates" placeholder="Enter walk-in dates and timings" required>
+    </div>
+
+    <div class="form-group">
+      <label for="contact-details">Contact Details:</label>
+      <textarea id="contact-details" name="contact-details" placeholder="Enter contact details" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('walkin-form');
+    const successMessage = 'Walk-in submitted successfully and will be updated.';
+    const errorMessage = 'Something went wrong in entering form data. Please try again.';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Simulate successful form submission
+      const isSubmittedSuccessfully = true; // Replace with your form submission logic
+
+      if (isSubmittedSuccessfully) {
+        form.reset();
+        alert(successMessage);
+      } else {
+        alert(errorMessage);
+      }
+    });
+  </script>
+</body>
+</html>
