@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Walk-In's around you</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="radio"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .search-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .walk-in-results {
+      margin-top: 20px;
+    }
+    
+    .walk-in-item {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    
+    .walk-in-item:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    .walk-in-item h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Walk-In's around you</h1>
+
+  <form id="search-form">
+    <div class="form-group">
+      <label for="job-role">Job Role:</label>
+      <input type="text" id="job-role" name="job-role" placeholder="Enter job role">
+    </div>
+
+    <div class="form-group">
+      <label for="city">Location:</label>
+      <input type="text" id="city" name="city" placeholder="City">
+      <input type="text" id="landmark1" name="landmark1" placeholder="Landmark 1">
+      <input type="text" id="landmark2" name="landmark2" placeholder="Landmark 2">
+      <input type="text" id="landmark3" name="landmark3" placeholder="Landmark 3">
+    </div>
+
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+  <div id="walk-in-results" class="walk-in-results"></div>
+
+  <script>
+    // Sample data of walk-ins
+    const walkInsData = [
+      {
+        company: "Company A",
+        jobRole: "Java",
+        location: "Hyderabad",
+        otherDetails: "CTC: $50,000, Skills Required: HTML, CSS, JavaScript, Bond: 2 years, Notice Period: 30 days"
+      },
+      {
+        company: "Company B",
+        jobRole: "Java",
+        location: "S.R.Nagar",
+        otherDetails: "CTC: $60,000, Skills Required: Python, SQL, Bond: None, Notice Period: Immediate"
+      },
+      {
+        company: "Company C",
+        jobRole: "Dot Net",
+        location: "Hyderabad",
+        otherDetails: "CTC: $70,000, Skills Required: Java, Spring, Hibernate, Bond: 1 year, Notice Period: 60 days"
+      },
+      // Add more walk-ins here
+    ];
+
+    // Function to filter walk-ins based on search criteria
+    function searchWalkIns() {
+      const jobRole = document.getElementById('job-role').value.toLowerCase();
+      const city = document.getElementById('city').value.toLowerCase();
+      const landmark1 = document.getElementById('landmark1').value.toLowerCase();
+      const landmark2 = document.getElementById('landmark2').value.toLowerCase();
+      const landmark3 = document.getElementById('landmark3').value.toLowerCase();
+
+      const filteredWalkIns = walkInsData.filter(walkIn => {
+        const jobRoleMatch = walkIn.jobRole.toLowerCase().includes(jobRole);
+        const locationMatch = walkIn.location.toLowerCase().includes(city) ||
+                              walkIn.location.toLowerCase().includes(landmark1) ||
+                              walkIn.location.toLowerCase().includes(landmark2) ||
+                              walkIn.location.toLowerCase().includes(landmark3);
+        return jobRoleMatch && locationMatch;
+      });
+
+      displayWalkIns(filteredWalkIns);
+    }
+
+    // Function to display walk-ins
+    function displayWalkIns(walkIns) {
+  const walkInResults = document.getElementById('walk-in-results');
+  walkInResults.innerHTML = '';
+
+  if (walkIns.length === 0) {
+    walkInResults.innerHTML = '<p>No walk-ins found.</p>';
+    return;
+  }
+
+  walkIns.forEach(walkIn => {
+    const walkInItem = document.createElement('div');
+    walkInItem.classList.add('walk-in-item');
+
+    const companyHeading = document.createElement('h3');
+    companyHeading.textContent = walkIn.company;
+
+    const jobRoleParagraph = document.createElement('p');
+    jobRoleParagraph.textContent = `Job Role: ${walkIn.jobRole}`;
+
+    const locationParagraph = document.createElement('p');
+    locationParagraph.textContent = `Location: ${walkIn.location}`;
+
+    const otherDetailsParagraph = document.createElement('p');
+    otherDetailsParagraph.textContent = `Other Details: ${walkIn.otherDetails}`;
+
+    walkInItem.appendChild(companyHeading);
+    walkInItem.appendChild(jobRoleParagraph);
+    walkInItem.appendChild(locationParagraph);
+    walkInItem.appendChild(otherDetailsParagraph);
+
+    walkInResults.appendChild(walkInItem);
+  });
+}
+
+
+    // Add event listener to the search form
+    const searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      searchWalkIns();
+    });
+  </script>
+</body>
+</html>
